@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <style>
+        body {
+            background-color: #d43a85; /* Fondo rosado pastel */
+        }
+        .chat-container {
+            width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .user-message {
+            margin-bottom: 10px;
+        }
+        .bot-message {
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .title {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #470047; /* Título en color morado */
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .keyword-section {
+            margin-top: 50px;
+        }
+        .keyword-button {
+            background-color: #800080;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .keyword-button:hover {
+            opacity: 0.8;
+        }
+        .tips-section {
+            margin-top: 20px;
+        }
+        .tip {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">PrimitiveChat</div>
+
+    <div class="chat-container">
+        <div class="bot-message">Bot: Hola, ¿cómo te sientes hoy?</div>
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" placeholder="Escribe tu respuesta..." onkeydown="handleUserInput(event)">
+    </div>
+
+    <div class="keyword-section">
+        <button class="keyword-button" onclick="showTips('amor')">Amor</button>
+        <button class="keyword-button" onclick="showTips('decepcion')">Decepción</button>
+        <button class="keyword-button" onclick="showTips('infiel')">Infiel</button>
+        <button class="keyword-button" onclick="showTips('escolar')">Escolar</button>
+        <button class="keyword-button" onclick="showTips('enojo')">Enojo</button>
+        <button class="keyword-button" onclick="showTips('autoestima')">Autoestima</button>
+    </div>
+
+    <div class="tips-section" id="tips-section">
+        <!-- Los consejos se mostrarán aquí -->
+    </div>
+
+    <script>
+        function handleUserInput(event) {
+            if (event.keyCode === 13) {
+                var userInput = document.getElementById("user-input").value;
+                document.getElementById("chat-log").innerHTML += '<div class="user-message">Usuario: ' + userInput + '</div>';
+                document.getElementById("user-input").value = "";
+
+                // Enviar la respuesta del usuario al chatbot
+                sendUserInputToChatbot(userInput);
+            }
+        }
+
+        function sendUserInputToChatbot(userInput) {
+            var botResponse;
+
+            // Lógica relacionada con la ayuda emocional
+            if (userInput.includes("triste")) {
+                botResponse = "Lamento escuchar que te sientes triste. ¿Quieres hablar más sobre eso?";
+            } else if (userInput.includes("enojado") || userInput.includes("enojada")) {
+                botResponse = "Parece que estás enojado/a. ¿Hay algo específico que te moleste?";
+            } else if (userInput.includes("feliz")) {
+                botResponse = "¡Qué bueno que te sientes feliz! ¿Hay algo en particular que te haya alegrado?";
+            } else {
+                botResponse = "Entiendo. ¿Te gustaría hablar más sobre cómo te sientes?";
+            }
+
+            document.getElementById("chat-log").innerHTML += '<div class="bot-message">Bot: ' + botResponse + '</div>';
+        }
+
+        function showTips(keyword) {
+            var tipsSection = document.getElementById("tips-section");
+            var tipsContent = "";
+
+            switch (keyword) {
+                case "amor":
+                    tipsContent = "<div class='tip'>1. Cultiva la comunicación abierta y sincera.</div>" +
+                                  "<div class='tip'>2. Aprende a respetar y valorar las diferencias.</div>" +
+                                  "<div class='tip'>3. Fomenta la confianza mutua en la relación.</div>" +
+                                  "<div class='tip'>4. Exprésate y escucha a tu pareja con empatía.</div>" +
+                                  "<div class='tip'>5. Mantén el romance y la pasión vivos con pequeños gestos diarios.</div>";
+                    break;
+                case "decepcion":
+                    tipsContent = "<div class='tip'>1. Permítete sentir y procesar tus emociones.</div>" +
+                                  "<div class='tip'>2. Busca el apoyo de personas cercanas.</div>" +
+                                  "<div class='tip'>3. Aprende de la experiencia y busca lecciones positivas.</div>" +
+                                  "<div class='tip'>4. Cuida de ti mismo/a y practica el autocuidado.</div>" +
+                                  "<div class='tip'>5. Enfócate en el presente y en el futuro, dejando ir el resentimiento.</div>";
+                    break;
+                case "infiel":
+                    tipsContent = "<div class='tip'>1. Evalúa si la relación puede ser reconstruida con confianza y comunicación abierta.</div>" +
+                                  "<div class='tip'>2. Busca terapia de pareja o asesoramiento para trabajar en la relación.</div>" +
+                                  "<div class='tip'>3. Establece límites claros y expectativas mutuas para evitar futuras traiciones.</div>" +
+                                  "<div class='tip'>4. Aprende a perdonar y dejar ir el dolor, si decides seguir adelante.</div>" +
+                                  "<div class='tip'>5. Reflexiona sobre las causas subyacentes y trabaja en el crecimiento personal.</div>";
+                    break;
+                case "escolar":
+                    tipsContent = "<div class='tip'>1. Organiza tu tiempo y establece una rutina de estudio efectiva.</div>" +
+                                  "<div class='tip'>2. Busca un entorno de estudio tranquilo y libre de distracciones.</div>" +
+                                  "<div class='tip'>3. Toma descansos regulares para evitar el agotamiento mental.</div>" +
+                                  "<div class='tip'>4. Utiliza técnicas de estudio y toma buenos apuntes.</div>" +
+                                  "<div class='tip'>5. Pide ayuda cuando la necesites y no tengas miedo de hacer preguntas.</div>";
+                    break;
+                case "enojo":
+                    tipsContent = "<div class='tip'>1. Practica técnicas de respiración profunda para calmarte en momentos de enojo.</div>" +
+                                  "<div class='tip'>2. Identifica las causas subyacentes de tu enojo y busca soluciones efectivas.</div>" +
+                                  "<div class='tip'>3. Comunica tus sentimientos y necesidades de manera asertiva.</div>" +
+                                  "<div class='tip'>4. Busca actividades o hobbies que te ayuden a liberar el estrés y la frustración.</div>" +
+                                  "<div class='tip'>5. Considera buscar ayuda profesional si el enojo persiste y afecta tu bienestar.</div>";
+                    break;
+                case "autoestima":
+                    tipsContent = "<div class='tip'>1. Practica el autocuidado y dedica tiempo para ti mismo/a.</div>" +
+                                  "<div class='tip'>2. Rodéate de personas positivas y que te apoyen.</div>" +
+                                  "<div class='tip'>3. Identifica y desafía tus pensamientos negativos.</div>" +
+                                  "<div class='tip'>4. Celebra tus logros y reconoce tus fortalezas.</div>" +
+                                  "<div class='tip'>5. Acepta que eres único/a y valioso/a tal como eres.</div>";
+                    break;
+                default:
+                    break;
+            }
+
+            tipsSection.innerHTML = tipsContent;
+        }
+    </script>
+</body>
+</html>
